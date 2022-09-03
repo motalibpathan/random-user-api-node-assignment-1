@@ -60,4 +60,13 @@ router.patch("/update", usersController.updateUser);
  */
 router.patch("/bulk-update", usersController.bulkUpdate);
 
+/**
+ * @api {delete} /user/delete Delete a user with id
+ * @apiDescription Update multiple userinfo by passing multiple user info in body as an array of object
+ * @apiSuccess {Object{}} success message.
+ *
+ * @apiError (Bad Request 400)  Bad Request  If body is no an array
+ */
+router.delete("/delete", usersController.deleteUser);
+
 module.exports = router;

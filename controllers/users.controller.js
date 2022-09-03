@@ -72,26 +72,40 @@ module.exports.updateUser = (req, res) => {
 };
 
 module.exports.bulkUpdate = (req, res) => {
-  const users = readJsonFile();
+  let users = readJsonFile();
   const data = req.body;
   if (Array.isArray(data)) {
-    const user = users.find((u) => u.id == id);
-    if (user) {
-      const userInfo = req.body;
-      let updatedUser = { ...user, ...userInfo };
-      const remaining = users.filter((u) => u.id != id);
-      const updatedUsers = JSON.stringify([...remaining, updatedUser]);
-      fs.writeFile("users.json", updatedUsers, (err) => {
-        if (!err) {
-          res.send({ message: "User data updated successful" });
-        } else {
-          console.log(err);
-        }
-      });
-    } else {
-      res.status(400).send({ error: "User not found with this id" });
-    }
+    data.forEach((userInfo) => {
+      const user = users.find((u) => u.id == userInfo.id);
+      if (user) {
+        let updatedUser = { ...user, ...userInfo };
+        const remaining = users.filter((u) => u.id != userInfo.id);
+        users = [...remaining, updatedUser];
+      }
+    });
+    // write updated file
+    const updatedUsers = JSON.stringify(users);
+    fs.writeFile("users.json", updatedUsers, (err) => {
+      if (!err) {
+        res.send({ message: "User data updated successful" });
+      } else {
+        console.log(err);
+      }
+    });
   } else {
-    res.status(400).send({ error: "Invalid user id!" });
+    res.status(400).send({ error: "Something went wrong!" });
   }
+};
+
+module.exports.deleteUser = (req, res) => {
+  const id = req.body.id;
+  let users = readJsonFile();
+  const newUsers = users.filter((u) => u.id != id);
+  fs.writeFile("users.json", newUsers, (err) => {
+    if (!err) {
+      res.send({ message: "User delete successful" });
+    } else {
+      console.log(err);
+    }
+  });
 };
