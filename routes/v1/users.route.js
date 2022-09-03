@@ -56,16 +56,16 @@ router.patch("/update", usersController.updateUser);
  * @apiDescription Update multiple userinfo by passing multiple user info in body as an array of object
  * @apiSuccess {Object{}} success message.
  *
- * @apiError (Bad Request 400)  Bad Request  If body is no an array
+ * @apiError (Bad Request 400)  Bad Request  If body is not an array
  */
 router.patch("/bulk-update", usersController.bulkUpdate);
 
 /**
  * @api {delete} /user/delete Delete a user with id
- * @apiDescription Update multiple userinfo by passing multiple user info in body as an array of object
+ * @apiDescription Delete a user
  * @apiSuccess {Object{}} success message.
  *
- * @apiError (Bad Request 400)  Bad Request  If body is no an array
+ * @apiError (Bad Request 400)  Bad Request  If user id is not valid and user id not exists
  */
 router.delete("/delete", usersController.deleteUser);
 
