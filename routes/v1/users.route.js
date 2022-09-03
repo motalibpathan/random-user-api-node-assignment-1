@@ -34,16 +34,16 @@ router.get("/all", usersController.getAllUsers);
 
 /**
  * @api {post} /user/save Save a user
- * @apiDescription Save a user
+ * @apiDescription Save a user from request body. Must be includes required fields, id, gender, name, contact, address and photoUrl
  * @apiSuccess {Object{}} success message.
  *
- * @apiError (Bad Request 400)  Bad Request  body is syntactically invalid
+ * @apiError (Bad Request 400)  Bad Request body is syntactically invalid
  */
 router.post("/save", usersController.saveAUser);
 
 /**
  * @api {patch} /user/update Update a user info
- * @apiDescription Update a user info
+ * @apiDescription Update a user info from request body. Body will be a object and include id and updated fields
  * @apiSuccess {Object{}} success message.
  *
  * @apiError (Bad Request 400)  Bad Request  If invalid user id
@@ -53,7 +53,7 @@ router.patch("/update", usersController.updateUser);
 
 /**
  * @api {patch} /user/bulk-update Update Multiple user info
- * @apiDescription Update multiple userinfo by passing multiple user info in body as an array of object
+ * @apiDescription Update multiple userinfo from request body. Body will be array of objects and object should be includes id and updated fields
  * @apiSuccess {Object{}} success message.
  *
  * @apiError (Bad Request 400)  Bad Request  If body is not an array
@@ -62,7 +62,7 @@ router.patch("/bulk-update", usersController.bulkUpdate);
 
 /**
  * @api {delete} /user/delete Delete a user with id
- * @apiDescription Delete a user
+ * @apiDescription Delete a user, receive id as a object from body
  * @apiSuccess {Object{}} success message.
  *
  * @apiError (Bad Request 400)  Bad Request  If user id is not valid and user id not exists
